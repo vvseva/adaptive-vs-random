@@ -8,6 +8,11 @@ globals [
   global-wait
 
   prefference-new
+
+  ArmA-dist
+  ArmB-dist
+
+  setup-pressed?
 ]
 
 breed [writers writer]
@@ -92,9 +97,14 @@ to setup
     set condition "Arm B"
   ]
 
+  set setup-pressed? 1
 end
 
 to create-random
+  if setup-pressed? = 0 [
+  setup
+  ]
+
   create-persons 1 [
     set heading 0
     set color white
@@ -220,12 +230,12 @@ to go
   let ArmB-S count personsA with [condition = "Arm B" and color = green]
   let ArmB-F count personsA with [condition = "Arm B" and color = red]
 
-  let ArmA-dist random-beta ArmA-S ArmA-F
+  set ArmA-dist random-beta ArmA-S ArmA-F
 
-  let ArmB-dist random-beta ArmB-S ArmB-F
+  set ArmB-dist random-beta ArmB-S ArmB-F
 
-  show ArmA-dist
-  show ArmB-dist
+;  show ArmA-dist
+;  show ArmB-dist
 
   (ifelse
     (ArmA-dist >  ArmB-dist) [set nextA "Arm A"]
@@ -462,6 +472,28 @@ NIL
 NIL
 NIL
 1
+
+MONITOR
+847
+538
+918
+583
+NIL
+ArmA-dist
+17
+1
+11
+
+MONITOR
+848
+597
+918
+642
+NIL
+ArmB-dist
+17
+1
+11
 
 @#$#@#$#@
 ## WHAT IS IT?
